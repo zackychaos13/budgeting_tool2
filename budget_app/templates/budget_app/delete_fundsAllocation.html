@@ -1,0 +1,47 @@
+{% extends 'budget_app/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Delete Allocation - Budget Buddy{% endblock %}
+{% block content %}
+ <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        
+<p>&nbsp;</p>
+{% if form.errors %}
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+{% endfor %}
+{% endif %}
+<div style="clear: both;"></div>
+
+<div class="card no-hover">
+    <div class="card-body">    
+        <h4 class="card-title mt-2">Delete Funds Allocation: (Budget: {{ budget.monthYear|date:"F Y" }} - {{ fundsAllocation.category.name }} - ${{ fundsAllocation.amount|floatformat:2 }})</h4>
+      <form method="POST">
+        {% csrf_token %}
+        <div style="padding-bottom:10px;">
+        <b>Are you sure you want to delete this funds allocation? This will not delete any transactions from this category.</b>
+      </div>
+        <button type="submit" class="btn btn-primary">Yes -- Delete!</button>
+        <a href="{% url 'viewFundsAllocations' budgetID=budget.id %}" class="btn btn-dark">
+            NO! Take me back!
+        </a>
+        <BR>
+      </form>
+
+    </div>
+  </div>
+<br />
+        </div>
+    </div>
+</div>
+{% endblock %}

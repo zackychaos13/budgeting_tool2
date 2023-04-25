@@ -1,0 +1,165 @@
+{% extends 'budget_app/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Transactions - Budget Buddy{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        <h2>Transactions</h2>
+<p>&nbsp;</p>
+<form method="GET" action="{%url 'viewTransactions' %}">
+  <div class="well">
+    <h4 style="margin-top: 0">Filter by:</h4>
+    <div class="row">
+      <div class="form-group col-sm-4 col-md-3">
+        <label>Budget Month/Year:</label>
+       <select name="b" id="b" class="custom-select">
+  {% if filteredBudget %}
+  <option value=""> All</option>
+  {% else %}
+  <option value="" selected> All</option>
+  {% endif %}
+  {% for budget in budgets %}
+    {% if filteredBudget.id == budget.id %}
+    <option value="{{ budget.id }}" selected>{{ budget.monthYear|date:"F Y" }}</option>
+    {% else %}
+    <option value="{{ budget.id }}">{{ budget.monthYear|date:"F Y" }}</option>
+    {% endif %}
+  {% endfor %}
+</select>
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        <label>Category:</label>
+       <select name="c" id="c" class="custom-select">
+  {% if filteredCategory %}
+  <option value=""> All</option>
+  {% else %}
+  <option value="" selected> All</option>
+  {% endif %}
+  {% for category in categories %}
+      {% if filteredCategory.id == category.id %}
+        <option value="{{ category.id }}" selected>{{ category.name }}</option>
+      {% else %}
+      <option value="{{ category.id }}">{{ category.name }}</option>
+      {% endif %}
+  {% endfor %}
+  
+</select>
+      </div>    
+    </div>
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search"></span> View Transactions
+    </button>
+  </div>
+</form>
+<div class="table-responsive">
+                    
+                      {% if fundsAllocation %}
+                    <div class="summary-list mb-4">
+                        <div class="w-summary-details">
+                            <div class="w-summary-info">
+                                <h6>(${{ totalSpent|floatformat:2 }}/${{ fundsAllocation.amount }}) Spent for {{ fundsAllocation.budget.monthYear|date:"F Y" }} {{ fundsAllocation.category.name }}:</h6>
+                                
+                                <p class="summary-count">${{ amountRemaining|floatformat:2 }} left</p>
+                                
+                            </div>
+
+                            <div class="w-summary-stats">
+                                <div class="progress">
+                                  
+                                    <div class="progress-bar" role="progressbar" style="width: {{ percentSpent }}%" aria-valuenow="{{ percentSpent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endif %}
+                  <p style="float:right;"><a class="btn btn-danger mb-2" href="{%url 'newTransaction' %}?c={{ filteredCategory.id }}&b={{ filteredBudget.id }}">Add Transaction</a></p>
+                      
+                  {% if not transactions %}
+                  <h4>No Transactions To Show...</h4>
+                  {% else %} 
+                  {% if filteredBudget and filteredCategory %}
+                      <p><br/>Showing Transactions for <b>{{ filteredBudget.monthYear|date:"F Y" }}</b> in the <b>{{ filteredCategory.name }}</b> category:</p>
+                  {% elif filteredBudget and not filteredCategory %}
+                      <p><br/>Showing all Transactions for <b>{{ filteredBudget.monthYear|date:"F Y" }}</b>:</p>
+                  {% elif filteredCategory and not filteredBudget %}
+                      <p><br/>Showing all Transactions in category <b>{{ filteredCategory.name }}</b>:</p>
+                  {% else %}
+                    <p><br/>Showing all Transactions:</p>
+                  {% endif %}
+                  <table class="table table-bordered table-hover mb-4">
+                          <thead>
+                              <tr>
+                                  <th>Date</th>
+                                  <th>Description</th>
+                                  <th>Amount</th>
+                                  <th style="width:55px;">Edit</th>
+                                  <th style="width:75px;">Delete</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            {% for transaction in transactions %}
+                              <tr>
+                                  <td>{{ transaction.date|date:"m/d/Y" }}</td>
+                                  <td>{{ transaction.description }} - ({{ transaction.category.name }}) </td>
+                                  <td>${{ transaction.amount|floatformat:2 }}</td>
+                                  <td class="w-summary-details"><a href="{%url 'editTransaction' transactionID=transaction.id %}"><i class="fa fa-pencil-alt mr-1"></i></a></td>
+                                  <td class="w-summary-details"><a href="{%url 'deleteTransaction' transactionID=transaction.id %}"><i class="fa fa-trash mr-1"></i></a></td>
+                              </tr>
+                              {% endfor %}
+                              
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                    <th>Total:</th>
+                                    {% if transactions.paginator.num_pages > 1 %}
+                                    <th>(Total includes all pages)</th>
+                                    {% else %}
+                                    <th>&nbsp;</th>
+                                    {% endif %}
+                                    <th>${{ totalSpent|floatformat:2 }}</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                    </tfoot>
+                                    </table>
+                                    <ul class="pagination" style="float:left;">
+                                      {% if transactions.has_previous %}
+                                      <li class="page-item"><a class="page-link" href="?page={{ transactions.previous_page_number }}"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+                                      {% else %}
+                                      <li class="page-item disabled"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+                                      {% endif %}
+                                  
+                                      {% if transactions.number|add:'-3' > 1 %}
+                                      <li class="page-item"><a class="page-link" href="?page={{ transactions.number|add:'-4' }}"><i class="fas fa-ellipsis-h"></i></a></li>
+                                      {% endif %}
+                                  
+                                      {% for i in page_range %}
+                                      {% if transactions.number == i %}
+                                          <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                      {% else %}
+                                          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                      {% endif %}
+                                      {% endfor %}
+                                      
+                                      {% if transactions.paginator.num_pages > transactions.number|add:'2' %}
+                                      <li class="page-item"><a class="page-link" href="?page={{ transactions.number|add:'3' }}"><i class="fas fa-ellipsis-h"></i></a></a></li>
+                                      {% endif %}
+                                  
+                                      {% if transactions.has_next %}
+                                      <li class="page-item"><a class="page-link" href="?page={{ transactions.next_page_number }}"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+                                      {% else %}
+                                      <li class="page-item disabled"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+                                      {% endif %}
+                                    </ul>
+                                    <p style="float:right;"><a class="btn btn-danger mb-2" href="{%url 'newTransaction' %}?c={{ filteredCategory.id }}&b={{ filteredBudget.id }}">Add Transaction</a></p>
+                                    <div style="clear: both;"></div>
+                                </div>
+                    {% endif %}
+
+      </div>
+    </div>
+</div>
+{% endblock %}

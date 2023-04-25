@@ -1,0 +1,99 @@
+{% extends 'budget_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}Edit Allocation - Budget Buddy{% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'assets/css/flatpickr/flatpickr.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/flatpickr/custom-monthpicker.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        
+<p>&nbsp;</p>
+{% if form.errors %}
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+{% endfor %}
+{% endif %}
+<div style="clear: both;"></div>
+
+<div class="card no-hover">
+    <div class="card-body">    
+        <h4 class="card-title mt-2">Editing Transaction:</h4>
+		<table class="table table-bordered table-hover mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+                            
+                                <tr>
+                                    <td>{{ transaction.date|date:"m/d/Y" }}</td>
+                                    <td>{{ transaction.description }} - ({{ transaction.category.name }}) </td>
+                                    <td>${{ transaction.amount|floatformat:2 }}</td>
+									
+                                </tr></table>
+
+	 <div class="widget-content widget-content-area">
+        <form action="#" method="POST">
+            {% csrf_token %}
+            
+      <div class="form-group mb-3"><b>Budget:</b>
+        {% render_field form.budget class="form-control mb-2 mr-sm-2" style="width:auto; min-width:210px;" %}
+      </div>
+      <div class="form-group mb-3"><b>Date:</b>
+        {% render_field form.date class="form-control mb-2 mr-sm-2" style="width:auto; min-width:210px;" %}
+            
+            </div>
+      
+      <div class="form-group mb-3"><b>Category:</b>									  
+        {% render_field form.category class="form-control mb-2 mr-sm-2" style="width:auto; min-width:210px;" %}
+      </div>
+                
+      <div class="form-group mb-3"><b>Description:</b>
+        {% render_field form.description class="form-control mb-2 mr-sm-2" style="width:auto; min-width:210px;" %}
+      </div>        
+      
+      <div class="form-group mb-2"><b>Amount:</b>
+        {% render_field form.amount class="form-control mb-2 mr-sm-2" style="width:auto; min-width:210px;" %}
+      </div>
+      
+      <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          </form>
+
+ </div>
+	  
+	  
+	  
+
+    </div>
+  </div>
+<br />
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+<script src="{% static 'assets/js/flatpickr/flatpickr.js' %}"></script>
+<script src="{% static 'assets/js/flatpickr/flatpickr-month.js' %}"></script>
+<script>flatpickr(document.getElementById('id_date'), {
+    dateFormat: "Y-m-d",
+    disableMobile: true,
+});
+</script> 
+{% endblock %}

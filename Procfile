@@ -1,0 +1,1 @@
+web: gunicorn cmsc495capstone.wsgi --log-file -

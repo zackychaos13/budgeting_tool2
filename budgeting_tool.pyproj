@@ -1,0 +1,266 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Name>budgeting_tool</Name>
+    <RootNamespace>budgeting_tool</RootNamespace>
+    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <TestFramework>Pytest</TestFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f0c58f8c-48a8-4afb-9605-5c9bb9ec8d30</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{5F0BE9CA-D677-4A4D-8806-6076C0FAAD37};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>manage.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Django launcher</LaunchProvider>
+    <DjangoSettingsModule>cmsc495capstone.settings</DjangoSettingsModule>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="budget_app\admin.py" />
+    <Compile Include="budget_app\apps.py" />
+    <Compile Include="budget_app\forms.py" />
+    <Compile Include="budget_app\migrations\0001_initial.py" />
+    <Compile Include="budget_app\migrations\0002_alter_category_name.py" />
+    <Compile Include="budget_app\migrations\0003_auto_20210524_1350.py" />
+    <Compile Include="budget_app\migrations\__init__.py" />
+    <Compile Include="budget_app\models.py" />
+    <Compile Include="budget_app\tests.py" />
+    <Compile Include="budget_app\urls.py" />
+    <Compile Include="budget_app\views.py" />
+    <Compile Include="budget_app\__init__.py" />
+    <Compile Include="cmsc495capstone\asgi.py" />
+    <Compile Include="cmsc495capstone\settings.py" />
+    <Compile Include="cmsc495capstone\urls.py" />
+    <Compile Include="cmsc495capstone\wsgi.py" />
+    <Compile Include="cmsc495capstone\__init__.py" />
+    <Compile Include="manage.py" />
+    <Compile Include="tests.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="budget_app\migrations\__pycache__\0001_initial.cpython-37.pyc" />
+    <Content Include="budget_app\migrations\__pycache__\0001_initial.cpython-38.pyc" />
+    <Content Include="budget_app\migrations\__pycache__\0002_alter_category_name.cpython-37.pyc" />
+    <Content Include="budget_app\migrations\__pycache__\0002_alter_category_name.cpython-38.pyc" />
+    <Content Include="budget_app\migrations\__pycache__\0003_auto_20210524_1350.cpython-38.pyc" />
+    <Content Include="budget_app\migrations\__pycache__\__init__.cpython-37.pyc" />
+    <Content Include="budget_app\migrations\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="budget_app\static\assets\css\custom.css" />
+    <Content Include="budget_app\static\assets\css\demo.css" />
+    <Content Include="budget_app\static\assets\css\lazy.css" />
+    <Content Include="budget_app\static\assets\fonts\linea\linea-basic-10.eot" />
+    <Content Include="budget_app\static\assets\fonts\linea\linea-basic-10.svg" />
+    <Content Include="budget_app\static\assets\fonts\linea\linea-basic-10.ttf" />
+    <Content Include="budget_app\static\assets\fonts\linea\linea-basic-10.woff" />
+    <Content Include="budget_app\static\assets\fonts\outline\untitled-font-5.eot" />
+    <Content Include="budget_app\static\assets\fonts\outline\untitled-font-5.svg" />
+    <Content Include="budget_app\static\assets\fonts\outline\untitled-font-5.ttf" />
+    <Content Include="budget_app\static\assets\fonts\outline\untitled-font-5.woff" />
+    <Content Include="budget_app\static\assets\img\bb_logo_white.png" />
+    <Content Include="budget_app\static\assets\img\dog-1.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-2.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-3.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-4.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-5.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-6.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-7.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-8.jpg" />
+    <Content Include="budget_app\static\assets\img\dog-9.jpg" />
+    <Content Include="budget_app\static\assets\img\favicon.ico" />
+    <Content Include="budget_app\static\assets\img\gifs\hearteyes.gif" />
+    <Content Include="budget_app\static\assets\img\gifs\thinking.gif" />
+    <Content Include="budget_app\static\assets\img\landing.png" />
+    <Content Include="budget_app\static\assets\img\landing_devices.png" />
+    <Content Include="budget_app\static\assets\img\logo.svg" />
+    <Content Include="budget_app\static\assets\img\logo_black.svg" />
+    <Content Include="budget_app\static\assets\img\logo_white.svg" />
+    <Content Include="budget_app\static\assets\img\lorde.png" />
+    <Content Include="budget_app\static\assets\img\presentation.jpg" />
+    <Content Include="budget_app\static\assets\img\profile.png" />
+    <Content Include="budget_app\static\assets\img\purple.jpg" />
+    <Content Include="budget_app\static\assets\img\register.png" />
+    <Content Include="budget_app\static\assets\js\demo.js" />
+    <Content Include="budget_app\static\assets\js\lazy.js" />
+    <Content Include="budget_app\static\assets\scss\custom\mixins\_animations.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\mixins\_base.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\mixins\_forms.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\mixins\_misc.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\mixins\_navigation.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\mixins\_typography.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_alerts.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_background.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_badges.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_buttons.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_cards.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_checkbox-radio-toggle.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_dropdown.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_footers.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_inputs.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_misc.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_mixins.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_modals.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_navbars.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_navs.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_pagination.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_popovers.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_progress-bars.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_sliders.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_tables.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_tooltips.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_typography.scss" />
+    <Content Include="budget_app\static\assets\scss\custom\_variables.scss" />
+    <Content Include="budget_app\static\assets\scss\demo.scss" />
+    <Content Include="budget_app\static\assets\scss\lazy.scss" />
+    <Content Include="budget_app\static\assets\vendor\bootstrap\bootstrap.min.css" />
+    <Content Include="budget_app\static\assets\vendor\bootstrap\bootstrap.min.js" />
+    <Content Include="budget_app\static\assets\vendor\jquery\jquery.min.js" />
+    <Content Include="budget_app\static\assets\vendor\nouislider\css\nouislider.css" />
+    <Content Include="budget_app\static\assets\vendor\nouislider\css\nouislider.min.css" />
+    <Content Include="budget_app\static\assets\vendor\nouislider\js\nouislider.js" />
+    <Content Include="budget_app\static\assets\vendor\nouislider\js\nouislider.min.js" />
+    <Content Include="budget_app\static\assets\vendor\popper\popper.js" />
+    <Content Include="budget_app\static\assets\vendor\popper\popper.min.js" />
+    <Content Include="budget_app\static\assets\vendor\prism\prism.css" />
+    <Content Include="budget_app\static\assets\vendor\prism\prism.js" />
+    <Content Include="budget_app\templates\budget_app\base.html" />
+    <Content Include="budget_app\templates\budget_app\budgets.html" />
+    <Content Include="budget_app\templates\budget_app\categories.html" />
+    <Content Include="budget_app\templates\budget_app\delete_budget.html" />
+    <Content Include="budget_app\templates\budget_app\delete_category.html" />
+    <Content Include="budget_app\templates\budget_app\delete_fundsAllocation.html" />
+    <Content Include="budget_app\templates\budget_app\delete_transaction.html" />
+    <Content Include="budget_app\templates\budget_app\edit_budget.html" />
+    <Content Include="budget_app\templates\budget_app\edit_category.html" />
+    <Content Include="budget_app\templates\budget_app\edit_fundsAllocation.html" />
+    <Content Include="budget_app\templates\budget_app\edit_transaction.html" />
+    <Content Include="budget_app\templates\budget_app\fundsAllocations.html" />
+    <Content Include="budget_app\templates\budget_app\new_budget.html" />
+    <Content Include="budget_app\templates\budget_app\new_category.html" />
+    <Content Include="budget_app\templates\budget_app\new_fundsAllocation.html" />
+    <Content Include="budget_app\templates\budget_app\new_transaction.html" />
+    <Content Include="budget_app\templates\budget_app\transactions.html" />
+    <Content Include="budget_app\templates\registration\login.html" />
+    <Content Include="budget_app\templates\registration\register.html" />
+    <Content Include="budget_app\__pycache__\admin.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\admin.cpython-38.pyc" />
+    <Content Include="budget_app\__pycache__\apps.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\forms.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\forms.cpython-38.pyc" />
+    <Content Include="budget_app\__pycache__\models.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\models.cpython-38.pyc" />
+    <Content Include="budget_app\__pycache__\urls.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\urls.cpython-38.pyc" />
+    <Content Include="budget_app\__pycache__\views.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\views.cpython-38.pyc" />
+    <Content Include="budget_app\__pycache__\__init__.cpython-37.pyc" />
+    <Content Include="budget_app\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\settings.cpython-37.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\settings.cpython-38.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\urls.cpython-37.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\urls.cpython-38.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\wsgi.cpython-37.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\wsgi.cpython-38.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\__init__.cpython-37.pyc" />
+    <Content Include="cmsc495capstone\__pycache__\__init__.cpython-38.pyc" />
+    <Content Include="db.sqlite3" />
+    <Content Include="README.md" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="budget_app\" />
+    <Folder Include="budget_app\migrations\" />
+    <Folder Include="budget_app\migrations\__pycache__\" />
+    <Folder Include="budget_app\static\" />
+    <Folder Include="budget_app\static\assets\" />
+    <Folder Include="budget_app\static\assets\css\" />
+    <Folder Include="budget_app\static\assets\fonts\" />
+    <Folder Include="budget_app\static\assets\fonts\linea\" />
+    <Folder Include="budget_app\static\assets\fonts\outline\" />
+    <Folder Include="budget_app\static\assets\img\" />
+    <Folder Include="budget_app\static\assets\img\gifs\" />
+    <Folder Include="budget_app\static\assets\js\" />
+    <Folder Include="budget_app\static\assets\scss\" />
+    <Folder Include="budget_app\static\assets\scss\custom\" />
+    <Folder Include="budget_app\static\assets\scss\custom\mixins\" />
+    <Folder Include="budget_app\static\assets\vendor\" />
+    <Folder Include="budget_app\static\assets\vendor\bootstrap\" />
+    <Folder Include="budget_app\static\assets\vendor\jquery\" />
+    <Folder Include="budget_app\static\assets\vendor\nouislider\" />
+    <Folder Include="budget_app\static\assets\vendor\nouislider\css\" />
+    <Folder Include="budget_app\static\assets\vendor\nouislider\js\" />
+    <Folder Include="budget_app\static\assets\vendor\popper\" />
+    <Folder Include="budget_app\static\assets\vendor\prism\" />
+    <Folder Include="budget_app\templates\" />
+    <Folder Include="budget_app\templates\budget_app\" />
+    <Folder Include="budget_app\templates\registration\" />
+    <Folder Include="budget_app\__pycache__\" />
+    <Folder Include="cmsc495capstone\" />
+    <Folder Include="cmsc495capstone\__pycache__\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env1\">
+      <Id>env1</Id>
+      <Version>3.7</Version>
+      <Description>env1 (Python 3.7 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Django.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

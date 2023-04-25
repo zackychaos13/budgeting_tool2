@@ -1,0 +1,73 @@
+{% extends 'budget_app/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Budgets - Budget Buddy{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        <h2>Budgets</h2>
+        <div class="w-summary-info">
+<p>Here is a list of your budgets in order of most recent first.<br/></p>
+<p class="summary-count"><a class="btn btn-danger mb-2" href="{% url 'newBudget' %}">New Budget</a></p>
+</div>
+{% for budget in budgets %}
+<div class="card">
+<div class="card-body">
+  <h4 class="card-title mt-2">{{ budget.monthYear|date:"F Y" }}</h4>
+  <div class="summary-list">                                        
+<div class="w-summary-details">
+<div class="w-summary-info">
+<h6>${{ budget.fundsSpent|floatformat:2 }} / ${{ budget.fundsToBudget|floatformat:2 }} Spent 
+<a href="{% url 'editBudget' budgetID=budget.id %}" class="small-link">[Edit]</a></h6>
+<p class="summary-count"><a href="{% url 'viewFundsAllocations' budgetID=budget.id %}">${{ budget.fundsRemaining|floatformat:2 }} Remaining</a></p>
+</div>
+<div class="w-summary-stats">
+<div class="progress">
+<div class="progress-bar bg-success" role="progressbar" style="width: {{ budget.percentSpent }}%" aria-valuenow="{{ budget.percentSpent }}" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+</div>
+</div>
+</div>
+<a href="{% url 'viewFundsAllocations' budgetID=budget.id %}" class="btn btn-primary">View Budget</a> &nbsp;&nbsp;<a href="{% url 'deleteBudget' budgetID=budget.id %}" class="btn btn-light">Delete Budget</a> 
+</div>  
+</div><br />
+{% empty %}
+<h4>You have no budgets yet...</h4>
+{% endfor %}    
+
+{% if budgets %}
+<ul class="pagination">
+  {% if budgetsPaginator.has_previous %}
+  <li class="page-item"><a class="page-link" href="?page={{ budgetsPaginator.previous_page_number }}"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+  {% else %}
+  <li class="page-item disabled"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left"></i></a></li>
+  {% endif %}
+
+  {% if budgetsPaginator.number|add:'-3' > 1 %}
+  <li class="page-item"><a class="page-link" href="?page={{ budgetsPaginator.number|add:'-4' }}"><i class="fas fa-ellipsis-h"></i></a></li>
+  {% endif %}
+
+  {% for i in page_range %}
+  {% if budgetsPaginator.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+  {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+  {% endfor %}
+  
+  {% if budgetsPaginator.paginator.num_pages > budgetsPaginator.number|add:'2' %}
+  <li class="page-item"><a class="page-link" href="?page={{ budgetsPaginator.number|add:'3' }}"><i class="fas fa-ellipsis-h"></i></a></a></li>
+  {% endif %}
+
+  {% if budgetsPaginator.has_next %}
+  <li class="page-item"><a class="page-link" href="?page={{ budgetsPaginator.next_page_number }}"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+  {% else %}
+  <li class="page-item disabled"><a class="page-link" href="#"><i class="fas fa-long-arrow-alt-right"></i></a></li>
+  {% endif %}
+</ul>
+{% endif %}
+
+      </div>
+    </div>
+</div>
+{% endblock %}

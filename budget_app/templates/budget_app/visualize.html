@@ -1,0 +1,111 @@
+{% extends 'budget_app/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Visualize Spending - Budget Buddy{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        <h2>Visualize Spending</h2>
+<p style="font-size:2px;">&nbsp;</p>
+<form method="GET" action="{%url 'visualizeSpending' %}">
+  <div class="well">
+    <h4 style="margin-top: 0">Filter by:</h4>
+    <div class="row">
+      <div class="form-group col-sm-4 col-md-3">
+        <label>Budget Month/Year:</label>
+       <select name="b" id="b" class="custom-select">
+  {% if filteredBudget %}
+  <option value=""> All</option>
+  {% else %}
+  <option value="" selected> All</option>
+  {% endif %}
+  {% for budget in budgets %}
+    {% if filteredBudget.id == budget.id %}
+    <option value="{{ budget.id }}" selected>{{ budget.monthYear|date:"F Y" }}</option>
+    {% else %}
+    <option value="{{ budget.id }}">{{ budget.monthYear|date:"F Y" }}</option>
+    {% endif %}
+  {% endfor %}
+</select>
+      </div>
+         
+    </div>
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search"></span> Visualize Spending
+    </button>
+  </div>
+</form>
+{% if spentByCategoryDict %}
+<div id="donutchart" style="width: 900px; height: 500px; max-width:100% !important;"></div>
+<div id="chart_div"></div>
+{% else %}
+<h4>No data to display...</h4>
+{% endif %}
+      </div>
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart", "bar"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Category', 'Amount Spent'],
+      {% for key,val in spentByCategoryDict.items %}
+      ["{{ key }}", {{ val }}],
+      {% endfor %}
+    ]);
+
+    var options = {
+      {% if filteredBudget %}
+      title: 'Spending By Category - {{ filteredBudget.monthYear|date:"F Y" }}',
+      {% else %}
+      title: 'Spending By Category',
+      {% endif %}
+      pieHole: 0.3,
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    chart.draw(data, options);
+  }
+
+  google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Category', '$ Spent',],
+        {% for key,val in spentByCategoryDict.items %}
+        ["{{ key }}", {{ val }}],
+        {% endfor %}
+      ]);
+
+      var options = {
+        {% if filteredBudget %}
+        title: 'Spending By Category - {{ filteredBudget.monthYear|date:"F Y" }}',
+        {% else %}
+        title: 'Spending By Category',
+        {% endif %}
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: '$ Spent',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Category'
+        }
+      };
+
+      var chartBar = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+      chartBar.draw(data, options);
+    }
+
+  $(window).resize(function(){
+  drawChart();
+  drawBasic();
+});
+</script>
+{% endblock %}

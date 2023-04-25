@@ -1,0 +1,98 @@
+{% extends 'budget_app/base.html' %}
+{% load widget_tweaks %}
+{% block title %}Budget Overview - Budget Buddy{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        <h2>Budget Overview</h2>
+
+<div class="card no-hover"><div class="card-body">
+                          <div class="widget-heading">
+                              <h5 class="">{{ budget.monthYear|date:"F Y" }} Budget</h5>
+                          </div>
+                          <div class="widget-content">
+                            
+                            <div class="order-summary">
+
+                                       <div class="w-summary-info">
+                                            <h6>&nbsp;</h6>
+                                            <p class="summary-count"><a class="btn btn-danger mb-2" href="{% url 'newFundsAllocation' %}?b={{ budget.id }}">Add Funds Allocation</a></p>
+                                        </div>
+
+                                        {% if totalAllocated < budget.fundsToBudget %}
+                                        {% if totalAllocated > 0 %}
+                                        <div class="alert alert-secondary" role="alert">
+                                  <p class="small"><b>You have only allocated ${{ totalAllocated|floatformat:2 }} out of your ${{ budget.fundsToBudget|floatformat:2 }} budget! <br /><br />Add more allocations or <a href="{%url 'editBudget' budgetID=budget.id %}">Edit Budget</a> to change your total budgeted funds!</b></p></div>
+                                  {% endif %}
+                                  {% endif %}
+                                </div>
+                                {% if fundsAllocations %}
+                              <div class="order-summary">
+
+                                       <div class="w-summary-info">
+                                            <h6>&nbsp;</h6>
+                                            <p class="summary-count">Amount Left:</p>
+                                        </div>
+                                </div>
+                                {% endif %}
+
+                                
+                                {% for fundsAllocation in fundsAllocations %}
+                                  <div class="summary-list">
+                                      
+                                      <div class="w-summary-details">
+
+                                          <div class="w-summary-info">
+                                              <h6><a href="{%url 'viewTransactions' %}?b={{ budget.id }}&c={{ fundsAllocation.category.id }}">{{ fundsAllocation.category.name }} (${{ fundsAllocation.amountSpent|floatformat:2 }} / ${{ fundsAllocation.amountAllocated|floatformat:2 }}):</a>
+                                                  <a href="{%url 'editFundsAllocation' allocationID=fundsAllocation.id %}" class="small-link">[Edit]</a> <a href="{%url 'deleteFundsAllocation' allocationID=fundsAllocation.id %}" class="small-link">[Delete]</a>
+                                              </h6>
+                                              <p class="summary-count"><a href="{%url 'viewTransactions' %}?b={{ budget.id }}&c={{ fundsAllocation.category.id }}">${{ fundsAllocation.amountRemaining|floatformat:2 }}</a></p>
+                                          </div>
+
+                                          <div class="w-summary-stats">
+                                              <div class="progress">
+                                                
+                                                  <div class="progress-bar bg-success" role="progressbar" style="width: {{ fundsAllocation.percentSpent }}%" aria-valuenow="{{ fundsAllocation.percentSpent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                  
+                                              </div>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                                    {% empty %}
+                                    <h4>You have no funds allocated to this budget yet...</h4>
+                                    {% endfor %}                                 
+                                  
+                                    {% if fundsAllocations %}
+                                  <div class="summary-list">
+                                      
+                                      <div class="w-summary-details">
+
+                                          <div class="w-summary-info">
+                                              <h6>Total (${{ totalSpent|floatformat:2 }} / ${{ totalAllocated|floatformat:2 }}):</h6>
+                                              <p class="summary-count">${{ totalRemaining|floatformat:2 }}</p>
+                                          </div>
+
+                                          <div class="w-summary-stats">
+                                              <div class="progress">
+                                                
+                                                  <div class="progress-bar bg-success bg-gradient-warning" role="progressbar" style="width: {{ totalPercentSpent }}%" aria-valuenow="{{ totalPercentSpent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                  
+                                              </div>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                                  {% endif %}
+
+                              </div>
+                              
+                      </div>
+                      </div>
+
+
+      </div>
+    </div>
+</div>
+{% endblock %}

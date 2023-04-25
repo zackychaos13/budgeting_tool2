@@ -1,0 +1,9 @@
+*.vs
+*.pyc
+db.sqlite3
+env
+obj
+staticFiles
+env*/
+.idea
+budget_app/migrations

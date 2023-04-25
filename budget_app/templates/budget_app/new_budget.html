@@ -1,0 +1,69 @@
+{% extends 'budget_app/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}New Budget - Budget Buddy{% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'assets/css/flatpickr/flatpickr.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/flatpickr/custom-monthpicker.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+    <div class="col-md-8 offset-md-2 content">
+        
+<p>&nbsp;</p>
+{% if form.errors %}
+{% for field in form %}
+    {% for error in field.errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <strong>{{ error|escape }}</strong>
+    </div>
+{% endfor %}
+{% endif %}
+<div style="clear: both;"></div>
+
+<div class="card no-hover">
+    <div class="card-body">    
+        <h4 class="card-title mt-2">Create New Budget</h4>
+      
+	  <div class="widget-content widget-content-area">
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group mb-3"> 
+        {% render_field form.monthYear class="form-control mb-2 mr-sm-2" style="width:auto;" placeholder="Month/Year" id="monthYear"  %}
+        </div>
+        <div class="form-group mb-2"> 
+          {% render_field form.fundsToBudget class="form-control mb-2 mr-sm-2" style="width:auto;" placeholder="Funds To Budget" step="0.01"  %}
+          </div>
+        <button type="submit" class="btn btn-primary mt-3">Create Budget</button>
+      </form>
+  </div>
+    </div>
+  </div>
+<br />
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extrajs %}
+<script src="{% static 'assets/js/flatpickr/flatpickr.js' %}"></script>
+<script src="{% static 'assets/js/flatpickr/flatpickr-month.js' %}"></script>
+<script>flatpickr(document.getElementById('monthYear'), {
+                  minDate: "2020-01",
+				  disableMobile: true,
+                plugins: [
+        new monthSelectPlugin({
+          shorthand: true, //defaults to false
+          dateFormat: "Y-m-d", //defaults to "F Y"
+          altFormat: "F Y", //defaults to "F Y"
+        })
+    ],
+            });
+</script>   
+{% endblock %}
